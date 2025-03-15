@@ -14,18 +14,31 @@ message_groups = {
 }
 
 def handler(event, context):
-    message_body = {
-        'timestamp': datetime.now().isoformat(),
-        'message': 'Hello from Lambda!'
-    }
+    execution_id = context.aws_request_id 
+    for j in range(5):
+        messages = []
+        for i in range(10):
+            message_body = {
+                'timestamp': datetime.now().isoformat(),
+                'message': f'Hello from Lambda! Message {j+1} - {i+1}',
+                'execution_id': execution_id
+            }
 
-    message_group_id = random.choice(list(message_groups.keys()))
+            message_group_id = random.choice(list(message_groups.keys()))
+            
+            print(f'Sending message to group {message_group_id}: {message_body}')
 
-    response = sqs.send_message(
-        QueueUrl=queue_url,
-        MessageBody=json.dumps(message_body),
-        MessageGroupId=message_group_id
-    )
+            messages.append({
+                'Id': f"{execution_id}{str(j)}{str(i)}",
+                'MessageBody': json.dumps(message_body),
+                'MessageGroupId': message_group_id
+            })
+
+        response = sqs.send_message_batch(
+            QueueUrl=queue_url,
+            Entries=messages
+        )
+
     return {
         'statusCode': 200,
         'body': json.dumps(response)
