@@ -1,0 +1,10 @@
+##  This terraform template to create new projects.
+
+To execute this project: 
+
+1. Configure backend in `envs/<env>/backend.conf`
+2. Define variables at `envs/<env>/terraform.tfvars`
+3. Put in your terminal env vars to AWS access ou configure your profile in `provider "aws"` at `backend-provider.tf`.
+4. Run command `  terraform init --backend-config=envs/<env>/backend.conf` to configure terraform.
+5. Run `terraform plan` to seen creation plan.
+6. Run `terraform apply` to create resources. 
