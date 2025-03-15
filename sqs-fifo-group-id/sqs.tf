@@ -1,4 +1,4 @@
-resource "aws_sqs_queue" "fifo_queue" {
+resource "aws_sqs_queue" "message_queue" {
   name                        = "queue-messages.fifo"
   fifo_queue                  = true
   content_based_deduplication = true
@@ -9,6 +9,7 @@ resource "aws_sqs_queue" "fifo_queue" {
   })
 }
 
-resource "aws_sqs_queue" "dlq" {
-  name = "queue-messages-dlq"
+resource "aws_sqs_queue" "message_dlq" {
+  name = "queue-messages-dlq.fifo"
+  fifo_queue                  = true
 }
