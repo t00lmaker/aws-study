@@ -1,6 +1,7 @@
 import json
 import boto3
 import os
+import random
 from datetime import datetime
 
 sqs = boto3.client('sqs')
@@ -14,7 +15,7 @@ message_groups = {
 
 def handler(event, context):
     message_body = {
-        'timestamp': datetime.now(datetime.timezone.utc).isoformat(),
+        'timestamp': datetime.now().isoformat(),
         'message': 'Hello from Lambda!'
     }
 
