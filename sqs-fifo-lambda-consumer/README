@@ -1,4 +1,16 @@
-##  This terraform template to create new projects.
+# SQS FIFO and Lambda Consumer
+
+I created two lambdas: 
+
+1. *Producer*: Create 50 messages in a SQS FIFO, in five requests with 10 messages (This is a limit from SQS, 10 message by request).
+2. *Consumer*: Read Messages by SQS and print information in logs. This lambda use Event Trigger SQS. 
+
+
+I try use Group Id from FIFO SQS for segregate consumers. However, The pattern to SQS as 'one by consumer', and filters in Event trigger delete messages doesn't no met with filter. 
+
+
+
+##  Execute project 
 
 To execute this project: 
 
