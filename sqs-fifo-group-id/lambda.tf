@@ -14,7 +14,7 @@ resource "aws_lambda_function" "produce_message" {
 
   environment {
     variables = {
-      QUEUE_URL = aws_sqs_queue.fifo_queue.url
+      QUEUE_URL = aws_sqs_queue.message_queue.url
     }
   }
 

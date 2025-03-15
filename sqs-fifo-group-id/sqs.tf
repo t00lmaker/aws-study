@@ -4,7 +4,7 @@ resource "aws_sqs_queue" "message_queue" {
   content_based_deduplication = true
 
   redrive_policy = jsonencode({
-    deadLetterTargetArn = aws_sqs_queue.dlq.arn
+    deadLetterTargetArn = aws_sqs_queue.message_dlq.arn
     maxReceiveCount     = 5
   })
 }

@@ -25,8 +25,17 @@ resource "aws_iam_role_policy" "producer_policy" {
           "sqs:SendMessage"
         ]
         Effect   = "Allow"
-        Resource = aws_sqs_queue.fifo_queue.arn
-      }
+        Resource = aws_sqs_queue.message_queue.arn
+      }, 
+      {
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Effect   = "Allow"
+        Resource = "arn:aws:logs:*:*:*"
+      },
     ]
   })
 }
