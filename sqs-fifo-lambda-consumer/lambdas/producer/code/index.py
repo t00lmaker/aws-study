@@ -18,13 +18,15 @@ def handler(event, context):
     for j in range(5):
         messages = []
         for i in range(10):
+            message_group_id = random.choice(list(message_groups.keys()))
             message_body = {
                 'timestamp': datetime.now().isoformat(),
-                'message': f'Hello from Lambda! Message {j+1} - {i+1}',
-                'execution_id': execution_id
+                'execution_id': execution_id, 
+                'group_id': message_group_id,
+                'j': j+1,
+                'i': i+1
             }
 
-            message_group_id = random.choice(list(message_groups.keys()))
             
             print(f'Sending message to group {message_group_id}: {message_body}')
 
